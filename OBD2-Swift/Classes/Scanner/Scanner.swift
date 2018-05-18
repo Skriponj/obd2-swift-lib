@@ -67,13 +67,13 @@ class `Scanner`: StreamHolder {
     }
     
     
-    open func startRepeatCommand(command: DataRequest, response : @escaping (_ response:Response) -> ()) {
+    open func startRepeatCommand(command: DataRequest, delay: UInt32, response : @escaping (_ response:Response) -> ()) {
         if repeatCommands.contains(command) {
             print("Command alredy on repeat loop and can be observed")
             return
         }
         repeatCommands.insert(command)
-        request(repeat: command, response: response)
+        request(repeat: command, delay: delay, response: response)
     }
     
     open func stopRepeatCommand(command: DataRequest) {
@@ -84,10 +84,11 @@ class `Scanner`: StreamHolder {
         return repeatCommands.contains(command)
     }
     
-    private func request(repeat command: DataRequest, response : @escaping (_ response:Response) -> ()) {
+    private func request(repeat command: DataRequest, delay: UInt32, response : @escaping (_ response:Response) -> ()) {
         
         let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
         
+        request.delay = delay
         request.queuePriority = .low
         request.onReceiveResponse = response
         request.completionBlock = { [weak self] in
@@ -98,7 +99,7 @@ class `Scanner`: StreamHolder {
             } else {
                 guard let strong = self else { return }
                 if strong.repeatCommands.contains(command) {
-                    strong.request(repeat: command, response: response)
+                    strong.request(repeat: command, delay: delay, response: response)
                 }
             }
         }

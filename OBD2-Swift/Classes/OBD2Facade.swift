@@ -94,9 +94,9 @@ open class OBD2 {
     /// Result can be observed by registered observer
     ///
     /// - Parameter command: Command to execute
-    public func request<T: CommandType>(repeat command: T) {
+    public func request<T: CommandType>(repeat command: T, withDelay delay: UInt32) {
         let dataRequest = command.dataRequest
-        scanner.startRepeatCommand(command: dataRequest) { (response) in
+        scanner.startRepeatCommand(command: dataRequest, delay: delay) { (response) in
             self.dispatchToObserver(command: command, with: response)
         }
     }

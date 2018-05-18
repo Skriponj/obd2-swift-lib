@@ -45,7 +45,7 @@ class StreamHandleOperation: Operation, StreamDelegate {
     func execute() {
         
     }
-    
+        
     func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         if aStream == input {
             inputStremEvent(event: eventCode)

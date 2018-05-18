@@ -24,6 +24,7 @@ class CommandOperation: StreamHandleOperation {
     }
 
     var onReceiveResponse:((_ response:Response) -> ())?
+    var delay: UInt32 = 0
     
     init(inputStream: InputStream, outputStream: OutputStream, command: DataRequest) {
         self.command = command
@@ -66,5 +67,6 @@ class CommandOperation: StreamHandleOperation {
         let response = Parser.package.read(package: package)
         onReceiveResponse?(response)
         readCompleted = true
+        sleep(delay)
     }
 }
