@@ -20,6 +20,8 @@ let elmProtocolMap: [ScanProtocol] = [
     .CAN11bit250KB,
     .CAN29bit250KB,
     .CAN29bit250KB,
+    .CAN11bit50KB,
+    .CAN11bit125KB,
     .none,
     .none
 ]
@@ -39,6 +41,8 @@ enum ScanProtocol: RawRepresentable {
     case CAN11bit500KB          //= 0x0080
     case CAN29bit250KB          //= 0x0100
     case CAN29bit500KB          //= 0x0200
+    case CAN11bit50KB           //= 0x0400
+    case CAN11bit125KB          //= 0x0800
     
     public init?(rawValue: RawValue) {
         switch rawValue {
@@ -62,6 +66,10 @@ enum ScanProtocol: RawRepresentable {
             self = .CAN29bit250KB
         case 0x0200:
             self = .CAN29bit500KB
+        case 0x0400:
+            self = .CAN11bit50KB
+        case 0x0800:
+            self = .CAN11bit125KB
         default:
             self = .none
         }
@@ -91,6 +99,10 @@ enum ScanProtocol: RawRepresentable {
             return 0x0200
         case .none:
             return 0x0000
+        case .CAN11bit50KB:
+            return 0x0400
+        case .CAN11bit125KB:
+            return 0x0800
         }
     }
 }
