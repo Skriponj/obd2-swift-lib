@@ -67,7 +67,7 @@ class Parser {
     func getProtocol(fro index: Int8) -> ScanProtocol {
       let i = Int(index)
 //      return elmProtocolMap[i]
-        return .CAN11bit125KB
+        return .CAN11bit50KB
     }
     
     func protocolName(`protocol`: ScanProtocol) -> String {

@@ -156,11 +156,11 @@ class InitScanerOperation: StreamHandleOperation {
                 searchIndex += 1
                 let index = reader.readBuffer[searchIndex] - 0x4E
 //                self.`protocol` = elmProtocolMap[Int(index)]
-                self.`protocol` = .CAN11bit125KB
+                self.`protocol` = .CAN11bit50KB
             } else {
                 let index = reader.readBuffer[searchIndex] ^ 0x40
 //                self.`protocol` = elmProtocolMap[Int(index)]
-                self.`protocol` = .CAN11bit125KB
+                self.`protocol` = .CAN11bit50KB
             }
             
             break
