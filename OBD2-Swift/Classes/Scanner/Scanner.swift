@@ -229,11 +229,12 @@ extension Scanner {
         case version 			= 8
         case search       = 16
         case `protocol`   = 32
-        case timeOut      = 64
-        case complete     = 128
+        case autoTimingOff = 64
+        case timeOut      = 128
+        case complete     = 256
         
         static var all : [State] {
-            return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .timeOut, .complete]
+            return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .autoTimingOff, .timeOut, .complete]
         }
         
         static func <<= (left: State, right: UInt) -> State {
