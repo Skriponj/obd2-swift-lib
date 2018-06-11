@@ -31,6 +31,7 @@ public struct Command {
     case reset
     case headersOn
     case echoOff
+    case timeOut
     case voltage
     case `protocol`
     case protocolNumber
@@ -59,6 +60,8 @@ public struct Command {
         return DataRequest(from: "AT H1")
       case .echoOff:
         return DataRequest(from: "AT E0")
+      case .timeOut:
+        return DataRequest(from: "AT ST 320")
       case .voltage:
         return DataRequest(from: "AT RV")
       case .`protocol`:
