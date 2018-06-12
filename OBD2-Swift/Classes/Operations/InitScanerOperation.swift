@@ -40,10 +40,6 @@ class InitScanerOperation: StreamHandleOperation {
             return Command.AT.reset.dataRequest
         case .echoOff:
             return Command.AT.echoOff.dataRequest
-        case .autoTimingOff:
-            return Command.AT.autoTimingOff.dataRequest
-        case .timeOut:
-            return Command.AT.timeOut.dataRequest
         case .`protocol`:
             return Command.AT.`protocol`.dataRequest
         case .version:
