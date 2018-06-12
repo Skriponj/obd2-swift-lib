@@ -130,6 +130,7 @@ class `Scanner`: StreamHolder {
         
         openConnectionOperation.completionBlock = { [weak self] in
             if let error = openConnectionOperation.error {
+                callback(false, error)
                 print("open operation completed with error \(error)")
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
