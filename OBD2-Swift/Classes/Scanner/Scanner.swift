@@ -90,7 +90,6 @@ class `Scanner`: StreamHolder {
         
         let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
         
-        request.delay = delay
         request.queuePriority = .low
         request.onReceiveResponse = response
         request.completionBlock = { [weak self] in
@@ -101,8 +100,10 @@ class `Scanner`: StreamHolder {
             } else {
                 guard let strong = self else { return }
                 if strong.repeatCommands.contains(command) {
-                    let delayCommand = DataRequest(from: "AT ST " + delayHexString)
-                    strong.request(repeat: delayCommand, delay: delay, response: response)
+                    if delay > 0 {
+                        let delayCommand = DataRequest(from: "AT ST " + delayHexString)
+                        strong.request(repeat: delayCommand, delay: delay, response: response)
+                    }
                     strong.request(repeat: command, delay: delay, response: response)
                 }
             }
