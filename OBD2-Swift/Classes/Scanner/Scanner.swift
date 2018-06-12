@@ -134,6 +134,7 @@ class `Scanner`: StreamHolder {
                 print("open operation completed with error \(error)")
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
+                return
             } else {
                 self?.state = .initializing
                 print("open operation completed without errors")
@@ -151,6 +152,7 @@ class `Scanner`: StreamHolder {
                 callback(false, error)
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
+                return
             } else {
                 self?.state = .connected
                 callback(true, nil)
