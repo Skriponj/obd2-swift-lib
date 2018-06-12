@@ -62,9 +62,11 @@ public struct Command {
       case .echoOff:
         return DataRequest(from: "AT E0")
       case .autoTimingOff:
-        return DataRequest(from: "AT AT0")
+//        return DataRequest(from: "AT AT0")
+        return DataRequest(from: "")
       case .timeOut:
-        return DataRequest(from: "AT ST FF")
+//        return DataRequest(from: "AT ST FF")
+        return DataRequest(from: "")
       case .voltage:
         return DataRequest(from: "AT RV")
       case .`protocol`:

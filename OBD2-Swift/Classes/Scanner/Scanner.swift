@@ -86,6 +86,8 @@ class `Scanner`: StreamHolder {
     
     private func request(repeat command: DataRequest, delay: UInt32, response : @escaping (_ response:Response) -> ()) {
         
+        let delayHexString = String(format: "%X", delay)
+        
         let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
         
         request.delay = delay
@@ -99,6 +101,8 @@ class `Scanner`: StreamHolder {
             } else {
                 guard let strong = self else { return }
                 if strong.repeatCommands.contains(command) {
+                    let delayCommand = DataRequest(from: "AT ST " + delayHexString)
+                    strong.request(repeat: delayCommand, delay: delay, response: response)
                     strong.request(repeat: command, delay: delay, response: response)
                 }
             }
