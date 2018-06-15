@@ -155,7 +155,7 @@ class Parser {
             // make byte array from string response
             var chunks: [String] = []
             if !resp.contains(" ") {
-                for offset in stride(from: 0, to: resp.count, by: 2) {
+                for offset in stride(from: 2, to: resp.count, by: 2) {
                     let str = resp as NSString
                     chunks.append(str.substring(with: NSRange(location: offset, length: 2)))
                 }
