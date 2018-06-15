@@ -29,8 +29,9 @@ public struct Command {
     public typealias Descriptor = StringDescriptor
     
     case reset
-    case headersOn
+    case headersOff
     case echoOff
+    case spacesOff
     case voltage
     case `protocol`
     case protocolNumber
@@ -55,10 +56,12 @@ public struct Command {
       switch self {
       case .reset:
         return DataRequest(from: "AT WS")
-      case .headersOn:
-        return DataRequest(from: "AT H1")
+      case .headersOff:
+        return DataRequest(from: "AT H0")
       case .echoOff:
         return DataRequest(from: "AT E0")
+      case .spacesOff:
+        return DataRequest(from: "AT S0")
       case .voltage:
         return DataRequest(from: "AT RV")
       case .`protocol`:

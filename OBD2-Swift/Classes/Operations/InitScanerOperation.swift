@@ -38,8 +38,12 @@ class InitScanerOperation: StreamHandleOperation {
         switch state {
         case .reset:
             return Command.AT.reset.dataRequest
+        case .headersOff:
+            return Command.AT.headersOff.dataRequest
         case .echoOff:
             return Command.AT.echoOff.dataRequest
+        case .spacesOff:
+            return Command.AT.spacesOff.dataRequest
         case .`protocol`:
             return Command.AT.`protocol`.dataRequest
         case .version:

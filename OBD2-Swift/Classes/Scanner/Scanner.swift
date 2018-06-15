@@ -225,14 +225,16 @@ extension Scanner {
     enum State : UInt {
         case unknown			= 1
         case reset				= 2
-        case echoOff			= 4
-        case version 			= 8
-        case search       = 16
-        case `protocol`   = 32
-        case complete     = 64
+        case headersOff         = 4
+        case echoOff			= 8
+        case spacesOff          = 16
+        case version 			= 32
+        case search       = 64
+        case `protocol`   = 128
+        case complete     = 256
         
         static var all : [State] {
-            return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .complete]
+            return [.unknown, .reset, .headersOff, .echoOff, .spacesOff, .version, .search, .`protocol`, .complete]
         }
         
         static func <<= (left: State, right: UInt) -> State {
