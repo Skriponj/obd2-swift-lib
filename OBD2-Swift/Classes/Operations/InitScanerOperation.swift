@@ -172,10 +172,12 @@ class InitScanerOperation: StreamHandleOperation {
             let resp = Parser.package.decode(data: buffer, length: buffer.count)
             var extendPIDSearch	= false
             
-            let morePIDs = buildSupportedSensorList(data: resp.data!, pidGroup: Int(currentPIDGroup))
-            
-            if !extendPIDSearch && morePIDs {
-              extendPIDSearch	= true
+            if resp.data != nil {
+                let morePIDs = buildSupportedSensorList(data: resp.data!, pidGroup: Int(currentPIDGroup))
+                
+                if !extendPIDSearch && morePIDs {
+                    extendPIDSearch    = true
+                }
             }
             
             currentPIDGroup	+= extendPIDSearch ? 0x20 : 0x00
