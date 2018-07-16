@@ -154,6 +154,9 @@ class Parser {
             
             // make byte array from string response
             var chunks: [String] = []
+            if Parser.string.isStopped(resp) || Parser.string.isNoData(resp) {
+                continue
+            }
             if !resp.contains(" ") && !resp.contains(">") {
                 // handle S0 command
                 let respComp = resp.components(separatedBy: "\n").filter{ $0 != "" }
