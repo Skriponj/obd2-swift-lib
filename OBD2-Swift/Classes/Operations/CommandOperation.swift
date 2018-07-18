@@ -67,6 +67,5 @@ class CommandOperation: StreamHandleOperation {
         let response = Parser.package.read(package: package)
         onReceiveResponse?(response)
         readCompleted = true
-        sleep(delay)
     }
 }
