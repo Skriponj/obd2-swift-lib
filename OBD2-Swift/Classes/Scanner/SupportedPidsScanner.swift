@@ -21,7 +21,7 @@ open class SupportedPidsScanner {
         supportedSensorList = []
     }
     
-    func searchForSupportedPids(response: Response) -> [SensorDescriptor] {
+    public func searchForSupportedPids(response: Response) -> [SensorDescriptor] {
         let data = response.data
         var extendPIDSearch    = false
         
