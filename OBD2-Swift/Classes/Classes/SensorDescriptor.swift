@@ -18,7 +18,7 @@ import Foundation
  consideration as we build our decoding table.
  */
 
-public struct SensorDescriptor {
+struct SensorDescriptor {
   public init(  _ pid : Int8,
          _ description : String,
          _ shortDescription : String,

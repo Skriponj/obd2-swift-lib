@@ -7,6 +7,18 @@
 
 import Foundation
 
+public struct SupportedPid {
+    public var pid: Int
+    public var description: String
+    public var shortDescription: String
+    
+    public init(pid: Int, descr: String, sDescr: String) {
+        self.pid = pid
+        self.description = descr
+        self.shortDescription = sDescr
+    }
+}
+
 open class SupportedPidsScanner {
     
     var supportedSensorList: [Int]
@@ -21,7 +33,7 @@ open class SupportedPidsScanner {
         supportedSensorList = []
     }
     
-    public func searchForSupportedPids(response: Response) -> [SensorDescriptor] {
+    public func searchForSupportedPids(response: Response) -> [SupportedPid] {
         if !supportedSensorList.isEmpty {
             supportedSensorList.removeAll()
         }
@@ -51,11 +63,13 @@ open class SupportedPidsScanner {
 //            currentPIDGroup    = 0x00
 //        }
         
-        var pids: [SensorDescriptor] = []
+        var pids: [SupportedPid] = []
         supportedSensorList.forEach { (pid) in
             let sensors = SensorDescriptorTable.filter{ Int($0.pid) == pid }
             if !sensors.isEmpty {
-                pids.append(sensors.first!)
+                let item = sensors.first!
+                let sPid = SupportedPid(pid: Int(item.pid), descr: item.description, sDescr: item.shortDescription)
+                pids.append(sPid)
             }
         }
         
