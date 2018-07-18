@@ -198,7 +198,7 @@ class InitScanerOperation: StreamHandleOperation {
     }
 }
 
-public func buildSupportedSensorList(data : Data, pidGroup : Int) -> Bool {
+fileprivate func buildSupportedSensorList(data : Data, pidGroup : Int) -> Bool {
     
     let bytes = data.withUnsafeBytes {
         [UInt8](UnsafeBufferPointer(start: $0, count: data.count))

@@ -28,6 +28,8 @@ open class OBD2 {
         }
     }
     
+    public let supportedSensorsScanner = SupportedPidsScanner()
+    
     public convenience init(){
         self.init(host : "192.168.0.10", port : 35000)
     }

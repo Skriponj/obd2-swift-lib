@@ -13,6 +13,7 @@
 		59A4FD1B9316830075B20260C0B195B2 /* Pods-OBD2-Swift_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC94D677A1AB0CB74E9A3304B7CD756 /* Pods-OBD2-Swift_Example-dummy.m */; };
 		75324125AA546D1F8250976CF6EF6730 /* Pods-OBD2-Swift_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CEDCB1C934FE5E30E944289BA79DF74 /* Pods-OBD2-Swift_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		822F3F3D3D90321A17735009FF2E0337 /* OBD2-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF33B6519BC69205A643DA43BB8777F /* OBD2-Swift-dummy.m */; };
+		BCEF574320FF54C400CCAF89 /* SupportedPidsScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF574220FF54C400CCAF89 /* SupportedPidsScanner.swift */; };
 		CEA614011EFAC3EA0049D209 /* GloablCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA613D51EFAC3EA0049D209 /* GloablCalculator.swift */; };
 		CEA614021EFAC3EA0049D209 /* ProtocolModelDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA613D61EFAC3EA0049D209 /* ProtocolModelDescription.swift */; };
 		CEA614031EFAC3EA0049D209 /* SensorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA613D71EFAC3EA0049D209 /* SensorDescriptor.swift */; };
@@ -90,6 +91,7 @@
 		A2930E2F9821F4D1C2EDD1A43F1545EC /* Pods-OBD2-Swift_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OBD2-Swift_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		A468D19CFAC4B96552CA301F30C0A93B /* OBD2-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OBD2-Swift-umbrella.h"; sourceTree = "<group>"; };
 		ABE0F603C8A0134FB4D6157BFDF8F042 /* Pods-OBD2-Swift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-OBD2-Swift_Example.modulemap"; sourceTree = "<group>"; };
+		BCEF574220FF54C400CCAF89 /* SupportedPidsScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedPidsScanner.swift; sourceTree = "<group>"; };
 		C49BD0826C112C9AEBE67CDAB9B536E6 /* Pods-OBD2-Swift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OBD2-Swift_Example-frameworks.sh"; sourceTree = "<group>"; };
 		C58A2C230FC24D718B03D87E5C7C3399 /* Pods-OBD2-Swift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OBD2-Swift_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		CEA613D51EFAC3EA0049D209 /* GloablCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GloablCalculator.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 			children = (
 				CEA613FB1EFAC3EA0049D209 /* Scanner.swift */,
 				CEA613FC1EFAC3EA0049D209 /* StreamHolder.swift */,
+				BCEF574220FF54C400CCAF89 /* SupportedPidsScanner.swift */,
 			);
 			path = Scanner;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				CEA614041EFAC3EA0049D209 /* SensorList.swift in Sources */,
 				CEA614071EFAC3EA0049D209 /* CommandMode03.swift in Sources */,
 				CEA614211EFAC3EA0049D209 /* StreamHolder.swift in Sources */,
+				BCEF574320FF54C400CCAF89 /* SupportedPidsScanner.swift in Sources */,
 				822F3F3D3D90321A17735009FF2E0337 /* OBD2-Swift-dummy.m in Sources */,
 				CEA614051EFAC3EA0049D209 /* CommandMode01.swift in Sources */,
 				CEA614241EFAC3EA0049D209 /* StreamWriter.swift in Sources */,
