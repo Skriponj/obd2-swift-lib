@@ -11,7 +11,7 @@ open class SupportedPidsScanner {
     
     var supportedSensorList: [Int]
     
-    private(set) var currentPIDGroup: UInt8 = 0x40 {
+    private(set) var currentPIDGroup: UInt8 = 0x00 {
         didSet {
             print("Set new pid group \(currentPIDGroup)")
         }
@@ -30,17 +30,21 @@ open class SupportedPidsScanner {
         var extendPIDSearch    = false
         
         if data != nil {
-            let morePIDs = buildSupportedSensorList(data: data!, pidGroup: Int(currentPIDGroup))
+//            let morePIDs = buildSupportedSensorList(data: data!, pidGroup: Int(currentPIDGroup))
+//
+//            if !extendPIDSearch && morePIDs {
+//                extendPIDSearch    = true
+//            }
             
-            if !extendPIDSearch && morePIDs {
-                extendPIDSearch    = true
+            for pidGroup in stride(from: 0x00, through: 0x40, by: 0x20) {
+                buildSupportedSensorList(data: data!, pidGroup: pidGroup)
             }
         }
         
 //        currentPIDGroup    += extendPIDSearch ? 0x20 : 0x00
 //
 //        if extendPIDSearch {
-//            if currentPIDGroup > 0x20 {
+//            if currentPIDGroup > 0x40 {
 //                currentPIDGroup    = 0x00
 //            }
 //        }else{
@@ -58,7 +62,7 @@ open class SupportedPidsScanner {
         return pids
     }
     
-    private func buildSupportedSensorList(data : Data, pidGroup : Int) -> Bool {
+    private func buildSupportedSensorList(data : Data, pidGroup : Int) {
         
         let bytes = data.withUnsafeBytes {
             [UInt8](UnsafeBufferPointer(start: $0, count: data.count))
@@ -67,7 +71,7 @@ open class SupportedPidsScanner {
         let bytesLen = bytes.count
         
         if bytesLen != 4 {
-            return false
+            return
         }
         
         /*    if(pidGroup == 0x00) {
@@ -92,7 +96,5 @@ open class SupportedPidsScanner {
                 }
             }
         }
-        
-        return MORE_PIDS_SUPPORTED(bytes)
     }
 }
