@@ -11,7 +11,7 @@ open class SupportedPidsScanner {
     
     var supportedSensorList: [Int]
     
-    private(set) var currentPIDGroup: UInt8 = 0x00 {
+    private(set) var currentPIDGroup: UInt8 = 0x40 {
         didSet {
             print("Set new pid group \(currentPIDGroup)")
         }
@@ -22,6 +22,10 @@ open class SupportedPidsScanner {
     }
     
     public func searchForSupportedPids(response: Response) -> [SensorDescriptor] {
+        if !supportedSensorList.isEmpty {
+            supportedSensorList.removeAll()
+        }
+        
         let data = response.data
         var extendPIDSearch    = false
         
@@ -33,15 +37,15 @@ open class SupportedPidsScanner {
             }
         }
         
-        currentPIDGroup    += extendPIDSearch ? 0x20 : 0x00
-        
-        if extendPIDSearch {
-            if currentPIDGroup > 0x40 {
-                currentPIDGroup    = 0x00
-            }
-        }else{
-            currentPIDGroup    = 0x00
-        }
+//        currentPIDGroup    += extendPIDSearch ? 0x20 : 0x00
+//
+//        if extendPIDSearch {
+//            if currentPIDGroup > 0x20 {
+//                currentPIDGroup    = 0x00
+//            }
+//        }else{
+//            currentPIDGroup    = 0x00
+//        }
         
         var pids: [SensorDescriptor] = []
         supportedSensorList.forEach { (pid) in
@@ -55,10 +59,6 @@ open class SupportedPidsScanner {
     }
     
     private func buildSupportedSensorList(data : Data, pidGroup : Int) -> Bool {
-        
-        if !supportedSensorList.isEmpty {
-            supportedSensorList.removeAll()
-        }
         
         let bytes = data.withUnsafeBytes {
             [UInt8](UnsafeBufferPointer(start: $0, count: data.count))
