@@ -46,7 +46,9 @@ open class SupportedPidsScanner {
         var pids: [SensorDescriptor] = []
         supportedSensorList.forEach { (pid) in
             let sensors = SensorDescriptorTable.filter{ Int($0.pid) == pid }
-            pids = sensors
+            if !sensors.isEmpty {
+                pids.append(sensors.first!)
+            }
         }
         
         return pids
