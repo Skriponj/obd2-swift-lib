@@ -38,13 +38,16 @@ open class OBD2 {
         self.host = host
         self.port = port
         
+        Logger.logToNewSession()
         self.scanner = Scanner(host: host, port: port)
+        Logger.info("Scanner create")
     }
     
     var logger : Any?
     var cache : Any?
     
     public func connect(_ block : @escaping CallBack){
+        Logger.info("Start connect")
         scanner.startScan { (success, error) in
             block(success, error)
         }
@@ -54,23 +57,27 @@ open class OBD2 {
     /// Disconnect from OBD
     public func disconnect() {
         scanner.disconnect()
+        Logger.info("Disconnect")
     }
     
     
     /// Stop scaning but leave active connection to obd
     public func stopScan() {
         scanner.cancelScan()
+        Logger.info("Cancel Scan")
     }
     
     
     /// Pause all requests to OBD
     open func pauseScan() {
         scanner.pauseScan()
+        Logger.info("Pause Scan")
     }
     
     /// Resume requests to OBD
     open func resumeScan() {
         scanner.resumeScan()
+        Logger.info("Resume Scan")
     }
     
     /// Send request to OBD once

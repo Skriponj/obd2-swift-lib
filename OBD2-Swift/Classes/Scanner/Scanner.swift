@@ -117,8 +117,9 @@ class `Scanner`: StreamHolder {
         obdQueue.cancelAllOperations()
         
         createStreams()
-        
+        Logger.info("I/O streams created")
         // Open connection to OBD
+        Logger.info("Start open connection")
         
         let openConnectionOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
         
@@ -126,27 +127,30 @@ class `Scanner`: StreamHolder {
             if let error = openConnectionOperation.error {
                 callback(false, error)
                 print("open operation completed with error \(error)")
+                Logger.error("Open connection faild: \(error.localizedDescription) \(error)")
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
             } else {
                 self?.state = .initializing
                 print("open operation completed without errors")
+                Logger.info("Open connection succesfull")
             }
         }
         
         obdQueue.addOperation(openConnectionOperation)
         
         // Initialize connection with OBD
-
-        let initOperation = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
         
+        let initOperation = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
         initOperation.completionBlock = { [weak self] in
             if let error = initOperation.error {
 //                callback(false, error)
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
+                Logger.error("Init connection faild: \(error.localizedDescription) \(error)")
             } else {
                 self?.state = .connected
+                Logger.info("Connection init successful")
                 callback(true, nil)
             }
         }

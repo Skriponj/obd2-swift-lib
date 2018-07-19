@@ -36,8 +36,9 @@ open class Logger {
     
     static var sourceType: LoggerSourceType = .console
     static let queue = OperationQueue()
+    private static let loggerFormatter = DateFormatter()
     
-    static let filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
+    static var filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
     
     public static func warning(_ message:String) {
         newLog(message, type: .warning)
@@ -49,7 +50,11 @@ open class Logger {
     
     public static func error(_ message:String) {
         newLog(message, type: .error)
-
+    }
+    
+    public static func logToNewSession() {
+        loggerFormatter.dateFormat = "y-MM-dd H_m_ss_SSSS"
+        filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Log_Session_from_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
     }
     
     public static func shareFile(on viewController: UIViewController) {
@@ -81,9 +86,10 @@ open class Logger {
     private static func newLog(_ message:String, type: LoggerMessageType = .verbose) {
         
         queue.maxConcurrentOperationCount = 1
+        loggerFormatter.dateFormat = "y-MM-dd H:m:ss.SSSS"
         queue.addOperation {
             
-            let log = "[\(Date().description)] [\(type)] \(message)"
+            let log = "[\(loggerFormatter.string(from: Date()))] [\(type)] \(message)"
 
             var content = ""
             if FileManager.default.fileExists(atPath: filePaths) {

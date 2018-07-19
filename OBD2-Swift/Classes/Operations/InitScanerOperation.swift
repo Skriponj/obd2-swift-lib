@@ -86,6 +86,7 @@ class InitScanerOperation: StreamHandleOperation {
     
     override func execute() {
         state.next()
+        Logger.info("Continue Initialization...")
         continueInitialization()
     }
     
