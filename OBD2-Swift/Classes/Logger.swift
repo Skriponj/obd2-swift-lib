@@ -38,6 +38,7 @@ open class Logger {
     static let queue = OperationQueue()
     private static let loggerFormatter = DateFormatter()
     
+    static let logDirName = "OBD_Logs"
     static var filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
     
     public static func warning(_ message:String) {
@@ -53,8 +54,14 @@ open class Logger {
     }
     
     public static func logToNewSession() {
-        loggerFormatter.dateFormat = "y-MM-dd H_m_ss_SSSS"
-        filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Log_Session_from_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
+        loggerFormatter.dateFormat = "y-MM-dd H_mm_ss_SSSS"
+        
+        let logsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appending("/\(logDirName)")
+        if !FileManager.default.fileExists(atPath: logsDirectoryPath) {
+            try? FileManager.default.createDirectory(atPath: logsDirectoryPath, withIntermediateDirectories: false, attributes: nil)
+        }
+        
+        filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(logDirName)/OBD2Log_Session_from_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
     }
     
     public static func shareFile(on viewController: UIViewController) {
@@ -86,7 +93,7 @@ open class Logger {
     private static func newLog(_ message:String, type: LoggerMessageType = .verbose) {
         
         queue.maxConcurrentOperationCount = 1
-        loggerFormatter.dateFormat = "y-MM-dd H:m:ss.SSSS"
+        loggerFormatter.dateFormat = "y-MM-dd H:mm:ss.SSSS"
         queue.addOperation {
             
             let log = "[\(loggerFormatter.string(from: Date()))] [\(type)] \(message)"
