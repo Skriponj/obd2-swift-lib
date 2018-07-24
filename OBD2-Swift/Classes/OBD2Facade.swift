@@ -38,7 +38,7 @@ open class OBD2 {
         self.host = host
         self.port = port
         
-        Logger.logToNewSession()
+        Logger.logToNewSessionWith(host: host, port: port)
         self.scanner = Scanner(host: host, port: port)
         Logger.info("Scanner create")
     }

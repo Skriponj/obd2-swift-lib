@@ -53,7 +53,7 @@ open class Logger {
         newLog(message, type: .error)
     }
     
-    public static func logToNewSession() {
+    public static func logToNewSessionWith(host: String, port: Int) {
         loggerFormatter.dateFormat = "y-MM-dd H_mm_ss_SSSS"
         
         let logsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appending("/\(logDirName)")
@@ -62,6 +62,19 @@ open class Logger {
         }
         
         filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(logDirName)/OBD2Log_Session_from_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
+        
+        Logger.info("Start new log")
+        Logger.info("""
+            
+            CONNECTION INFO:
+            host: \(host)
+            port: \(port)
+            
+            DEVICE INFO:
+            Model: \(UIDevice.current.model)
+            iOS ver: \(UIDevice.current.systemVersion)
+            
+        """)
     }
     
     public static func shareFile(on viewController: UIViewController) {
