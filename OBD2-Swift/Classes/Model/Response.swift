@@ -19,7 +19,7 @@ public struct Response : Hashable, Equatable {
   var pid : UInt8 = 0
   var data : Data?
   var rawData : [UInt8] = []
-    var error: Error? = nil
+    public var error: Error? = nil
   
   public var strigDescriptor : String?
     public static let obdErrorDomain = "com.obd2-Swift.Error"
