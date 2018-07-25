@@ -62,10 +62,11 @@ open class Logger {
             try? FileManager.default.createDirectory(atPath: logsDirectoryPath, withIntermediateDirectories: false, attributes: nil)
         }
         
-        filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(logDirName)/OBD2Log_Session_from_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
-        
         let logSessionId = UUID().uuidString
         currentSessionId = logSessionId
+        
+        filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(logDirName)/OBD2Log_\(logSessionId)_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
+        
         Logger.info("Start new log")
         Logger.info("Log session ID: \(logSessionId)")
         Logger.info("""

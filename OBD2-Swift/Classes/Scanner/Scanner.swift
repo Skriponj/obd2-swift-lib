@@ -128,12 +128,12 @@ class `Scanner`: StreamHolder {
                 callback(false, error)
                 print("open operation completed with error \(error)")
                 Logger.error("""
-                        \n
+                    
                         Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")
                         Open connection faild!
                         Description: \(error.localizedDescription)
                         Error: \(error)
-                        """)
+                """)
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
             } else {
@@ -154,12 +154,12 @@ class `Scanner`: StreamHolder {
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
                 Logger.error("""
-                        \n
+                    
                         Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")
                         Init connection faild!
                         Description: \(error.localizedDescription)
                         Error: \(error)
-                    """)
+                """)
             } else {
                 self?.state = .connected
                 Logger.info("Connection init successful")
