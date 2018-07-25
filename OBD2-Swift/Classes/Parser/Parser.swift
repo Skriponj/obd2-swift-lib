@@ -184,7 +184,9 @@ class Parser {
         }
 
         response = decode(data: decodeBuf, length: decodeBufLength)
-      }else{
+      } else {
+        let errorStr = String(format: "%@ (%@)", Response.obdErrorDomain, Response.ResponseError.noDataError.rawValue)
+        response.error = NSError(domain: errorStr, code: 0, userInfo: nil)
         response.strigDescriptor = package.strigDescriptor
       }
       
