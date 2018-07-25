@@ -30,7 +30,7 @@ public class Observer<T : CommandType> : ObserverType {
     
     func dispatch(command : T, response : Response){
         let described = T.Descriptor(describe: response)
-        let hash = response.error != nil ? response.hashValue : command.hashValue
+        let hash = response.error != nil ? command.hashValue : response.hashValue
         guard let callbackArray = observers[hash] else {
 //            let errorStr = String(format: "%@ (%@)", Response.obdErrorDomain, Response.ResponseError.noDataError.rawValue)
 //            let error = NSError(domain: errorStr, code: 0, userInfo: nil)
