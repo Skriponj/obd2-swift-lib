@@ -55,7 +55,7 @@ open class Logger {
     }
     
     public static func logToNewSessionWith(host: String, port: Int) {
-        loggerFormatter.dateFormat = "y-MM-dd H_mm_ss_SSSS"
+        loggerFormatter.dateFormat = "y-MM-dd H-mm-ss-SSSS"
         
         let logsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appending("/\(logDirName)")
         if !FileManager.default.fileExists(atPath: logsDirectoryPath) {
