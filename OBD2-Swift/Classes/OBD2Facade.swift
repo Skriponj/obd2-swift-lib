@@ -57,27 +57,27 @@ open class OBD2 {
     /// Disconnect from OBD
     public func disconnect() {
         scanner.disconnect()
-        Logger.info("Disconnect")
+        Logger.info("Disconnect. Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")")
     }
     
     
     /// Stop scaning but leave active connection to obd
     public func stopScan() {
         scanner.cancelScan()
-        Logger.info("Cancel Scan")
+        Logger.info("Cancel Scan. Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")")
     }
     
     
     /// Pause all requests to OBD
     open func pauseScan() {
         scanner.pauseScan()
-        Logger.info("Pause Scan")
+        Logger.info("Pause Scan. Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")")
     }
     
     /// Resume requests to OBD
     open func resumeScan() {
         scanner.resumeScan()
-        Logger.info("Resume Scan")
+        Logger.info("Resume Scan. Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")")
     }
     
     /// Send request to OBD once

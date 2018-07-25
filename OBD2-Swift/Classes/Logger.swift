@@ -40,6 +40,7 @@ open class Logger {
     
     static let logDirName = "OBD_Logs"
     static var filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
+    static public var currentSessionId: String?
     
     public static func warning(_ message:String) {
         newLog(message, type: .warning)
@@ -63,7 +64,10 @@ open class Logger {
         
         filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(logDirName)/OBD2Log_Session_from_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
         
+        let logSessionId = UUID().uuidString
+        currentSessionId = logSessionId
         Logger.info("Start new log")
+        Logger.info("Log session ID: \(logSessionId)")
         Logger.info("""
             
             CONNECTION INFO:
