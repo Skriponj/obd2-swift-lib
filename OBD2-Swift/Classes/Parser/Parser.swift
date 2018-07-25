@@ -161,6 +161,9 @@ class Parser {
                 // handle S0 command
                 let respComp = resp.components(separatedBy: "\n").filter{ $0 != "" }
                 for item in respComp {
+                    if item.count % 2 != 0 {
+                        continue
+                    }
                     for offset in stride(from: 0, to: item.count, by: 2) {
                         let str = item as NSString
                         chunks.append(str.substring(with: NSRange(location: offset, length: 2)))
