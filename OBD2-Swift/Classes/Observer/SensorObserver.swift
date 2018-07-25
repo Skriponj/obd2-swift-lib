@@ -39,7 +39,7 @@ public class Observer<T : CommandType> : ObserverType {
         }
         
         for callback in callbackArray {
-            callback?(described, nil)
+            callback?(described, response.error)
         }
     }
     
