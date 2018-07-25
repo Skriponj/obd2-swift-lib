@@ -64,7 +64,13 @@ class CommandOperation: StreamHandleOperation {
     
     private func onReadEnd() {
         let package = Package(buffer: reader.readBuffer, length: reader.readBufferLenght)
-        let response = Parser.package.read(package: package)
+        var response = Parser.package.read(package: package)
+        // if response has error and response pid not detected - set response pid from DataRequest
+        if response.error != nil && response.pid == 0 {
+            let requestPidComponent = command.description.components(separatedBy: " ")[1]
+            let pid = Parser.string.toUInt8(hexString: requestPidComponent)
+            response.pid = UInt8(pid)
+        }
         onReceiveResponse?(response)
         readCompleted = true
     }

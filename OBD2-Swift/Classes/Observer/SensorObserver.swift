@@ -15,12 +15,12 @@ public class ObserverType : NSObject {}
 // unregister func deactivates observer
 
 public class Observer<T : CommandType> : ObserverType {
-    private typealias DescriptorCallBack = (_ descriptor : T.Descriptor?)->()
+    private typealias DescriptorCallBack = (_ descriptor : T.Descriptor?, _ error: Error?)->()
     private typealias DescriptorArray = [(DescriptorCallBack)?]
     
     private var observers : [Int : DescriptorArray] = [:]
     
-    public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
+    public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?, _ error: Error?)->()){
         let key = command.hashValue
         let array = observers[key] ?? []
         let flatAray = array.compactMap({$0})
@@ -31,10 +31,17 @@ public class Observer<T : CommandType> : ObserverType {
     func dispatch(command : T, response : Response){
         let described = T.Descriptor(describe: response)
         
-        guard let callbackArray = observers[response.hashValue] else {return}
+        guard let callbackArray = observers[response.hashValue] else {
+//            let errorStr = String(format: "%@ (%@)", Response.obdErrorDomain, Response.ResponseError.noDataError.rawValue)
+//            let error = NSError(domain: errorStr, code: 0, userInfo: nil)
+//            let callback: (DescriptorCallBack) -> ()
+//            callback(nil, error)
+            
+            return
+        }
         
         for callback in callbackArray {
-            callback?(described)
+            callback?(described, nil)
         }
     }
     
