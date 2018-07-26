@@ -29,6 +29,7 @@ public struct Command {
     public typealias Descriptor = StringDescriptor
     
     case reset
+    case searching
     case headersOff
     case echoOff
     case spacesOff
@@ -55,7 +56,9 @@ public struct Command {
     public var dataRequest : DataRequest {
       switch self {
       case .reset:
-        return DataRequest(from: "AT WS")
+        return DataRequest(from: "AT Z")
+      case .searching:
+        return DataRequest(from: "AT SP0")
       case .headersOff:
         return DataRequest(from: "AT H0")
       case .echoOff:
