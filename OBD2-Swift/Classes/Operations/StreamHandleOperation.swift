@@ -54,6 +54,8 @@ class StreamHandleOperation: Operation, StreamDelegate {
         }
         if eventCode == .errorOccurred {
             self.error = aStream.streamError
+            Logger.error("Event Error: \(String(describing: aStream.streamError))")
+            Logger.error("Event Error Description: \(aStream.streamError?.localizedDescription ?? "Unknown Error")")
         }
     }
     

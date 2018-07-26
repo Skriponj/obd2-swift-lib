@@ -51,6 +51,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
     }
     
     override func execute() {
+        Logger.info("Start opening input/output streams")
         input.open()
         output.open()
     }
