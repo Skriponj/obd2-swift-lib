@@ -67,7 +67,12 @@ class CommandOperation: StreamHandleOperation {
         var response = Parser.package.read(package: package)
         // if response has error and response pid not detected - set response pid from DataRequest
         if response.error != nil && response.pid == 0 {
-            let requestPidComponent = command.description.components(separatedBy: " ")[1]
+            var requestPidComponent = "00"
+            if command.description.components(separatedBy: " ").count == 1 {
+                requestPidComponent = command.description.components(separatedBy: " ")[0]
+            } else {
+                requestPidComponent = command.description.components(separatedBy: " ")[1]
+            }
             let pid = Parser.string.toUInt8(hexString: requestPidComponent)
             response.pid = UInt8(pid)
         }
