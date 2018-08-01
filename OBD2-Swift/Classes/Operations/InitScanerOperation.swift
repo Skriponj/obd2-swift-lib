@@ -166,7 +166,9 @@ class InitScanerOperation: StreamHandleOperation {
                 self.`protocol` = elmProtocolMap[Int(index)]
             } else {
                 let index = reader.readBuffer[searchIndex] ^ 0x40
-                self.`protocol` = elmProtocolMap[Int(index)]
+                if Int(index) < elmProtocolMap.count - 1 && elmProtocolMap[Int(index)] != .none {
+                    self.`protocol` = elmProtocolMap[Int(index)]
+                }
             }
             
             break
