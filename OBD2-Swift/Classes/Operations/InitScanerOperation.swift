@@ -30,6 +30,7 @@ class InitScanerOperation: StreamHandleOperation {
 
     private(set) var `protocol`:ScanProtocol? {
         didSet {
+            Logger.info("Set OBD protocol to \(String(describing: self.`protocol`))")
             print("Set OBD protocol to \(String(describing: self.`protocol`))")
         }
     }

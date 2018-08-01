@@ -37,6 +37,7 @@ class StreamHolder: NSObject {
     func createStreams() {
         var readStream: InputStream?
         var writeStream: OutputStream?
+        Logger.info("Trying to get streams to host: \(host) and port: \(port)")
         Stream.getStreamsToHost(withName: host, port: port, inputStream: &readStream, outputStream: &writeStream)
         guard let a = readStream else { fatalError("Read stream not created") }
         guard let b = writeStream else { fatalError("Write stream not created") }

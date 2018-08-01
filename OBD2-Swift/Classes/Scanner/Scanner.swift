@@ -150,7 +150,7 @@ class `Scanner`: StreamHolder {
         let initOperation = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
         initOperation.completionBlock = { [weak self] in
             if let error = initOperation.error {
-//                callback(false, error)
+                callback(false, error)
                 self?.state = .none
                 self?.obdQueue.cancelAllOperations()
                 Logger.error("""
