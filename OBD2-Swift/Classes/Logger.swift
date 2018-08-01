@@ -39,7 +39,7 @@ open class Logger {
     private static let loggerFormatter = DateFormatter()
     
     static let logDirName = "OBD_Logs"
-    static var filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
+    public static var filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
     static public var currentSessionId: String?
     
     public static func warning(_ message:String) {
@@ -62,12 +62,55 @@ open class Logger {
             try? FileManager.default.createDirectory(atPath: logsDirectoryPath, withIntermediateDirectories: false, attributes: nil)
         }
         
+        guard let fileList = try? FileManager.default.contentsOfDirectory(atPath: logsDirectoryPath) else {
+            return
+        }
+        
+        var existLogFilePath: String? {
+            
+            let oneDay: TimeInterval = 60 * 60 * 24
+            for fileName in fileList {
+                
+                let fileNameWithoutExtension = fileName.replacingOccurrences(of: ".log", with: "")
+                let fileNameComponents = fileNameWithoutExtension.components(separatedBy: "_")
+                if fileNameComponents.count != 2 {
+                    print("The file is not an OBD log. Ignore.")
+                    continue
+                }
+                
+                let logDate = loggerFormatter.date(from: fileNameComponents[1])
+                if logDate == nil {
+                    print("Invalid log date. Ignore.")
+                    continue
+                }
+                
+                if abs(logDate!.timeIntervalSinceNow) < oneDay {
+                    return logsDirectoryPath.appending("/\(fileName)")
+                } else {
+                    //Remove old log file
+                    try? FileManager.default.removeItem(atPath: logsDirectoryPath.appending("/\(fileName)"))
+                }
+            }
+            
+            return nil
+        }
+        
+        if let path = existLogFilePath {
+            // Write to exist file
+            filePaths = path
+        } else {
+            // Write to a new file
+            filePaths = logsDirectoryPath.appending("/OBDLog_\(loggerFormatter.string(from: Date())).log")
+        }
+        
         let logSessionId = UUID().uuidString
         currentSessionId = logSessionId
         
-        filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(logDirName)/OBD2Log_\(logSessionId)_\(loggerFormatter.string(from: Date())).log") ?? "/OBD2Logger.txt"
-        
-        Logger.info("Start new log")
+        Logger.info("""
+            
+            ==============================================================
+            """)
+        Logger.info("Start new log session")
         Logger.info("Log session ID: \(logSessionId)")
         Logger.info("""
             
