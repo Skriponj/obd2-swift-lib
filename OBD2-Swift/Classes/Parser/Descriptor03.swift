@@ -26,7 +26,7 @@ public class Mode03Descriptor : DescriptorProtocol {
     guard let data = response.data , data.count >= 2 else {
       // data length must be a multiple of 2
       // each DTC is encoded in 2 bytes of data
-      print("data \(String(describing: response.data)) is NULL or dataLength is not a multiple of 2 \(response.data?.count ?? 0)")
+      //print("data \(String(describing: response.data)) is NULL or dataLength is not a multiple of 2 \(response.data?.count ?? 0)")
       return []
     }
     

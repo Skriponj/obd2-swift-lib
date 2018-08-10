@@ -60,7 +60,7 @@ class `Scanner`: StreamHolder {
         request.onReceiveResponse = response
         request.queuePriority = .high
         request.completionBlock = {
-            print("Request operation completed")
+            //print("Request operation completed")
         }
         
         obdQueue.addOperation(request)
@@ -69,7 +69,7 @@ class `Scanner`: StreamHolder {
     
     open func startRepeatCommand(command: DataRequest, delay: UInt32, response : @escaping (_ response:Response) -> ()) {
         if repeatCommands.contains(command) {
-            print("Command alredy on repeat loop and can be observed")
+            //print("Command alredy on repeat loop and can be observed")
             return
         }
         repeatCommands.insert(command)
@@ -91,9 +91,9 @@ class `Scanner`: StreamHolder {
         request.queuePriority = .low
         request.onReceiveResponse = response
         request.completionBlock = { [weak self] in
-            print("Request operation completed")
+            //print("Request operation completed")
             if let error = request.error {
-                print("Error occured \(error)")
+                //print("Error occured \(error)")
                 self?.state = .none
             } else {
                 guard let strong = self else { return }
@@ -126,7 +126,7 @@ class `Scanner`: StreamHolder {
         openConnectionOperation.completionBlock = { [weak self] in
             if let error = openConnectionOperation.error {
                 callback(false, error)
-                print("open operation completed with error \(error)")
+                //print("open operation completed with error \(error)")
                 Logger.error("""
                     
                         Session ID: \(Logger.currentSessionId ?? "EMPTY DATA")
@@ -138,7 +138,7 @@ class `Scanner`: StreamHolder {
                 self?.obdQueue.cancelAllOperations()
             } else {
                 self?.state = .initializing
-                print("open operation completed without errors")
+                //print("open operation completed without errors")
                 Logger.info("Open connection succesfull")
             }
         }
@@ -224,12 +224,12 @@ extension Scanner: StreamFlowDelegate {
         //            waitingForVoltageCommand ? readVoltageResponse() : readInput()
         //
         //        } else {
-        //          print("Error: Received bytes in unknown state: \(state)")
+        //          //print("Error: Received bytes in unknown state: \(state)")
         //        }
         //
         //    } catch {
         //
-        //        print("Error: Init response unreadable. Need reconnect")
+        //        //print("Error: Init response unreadable. Need reconnect")
         //        //TODO: try reconnect
         //    }
         //

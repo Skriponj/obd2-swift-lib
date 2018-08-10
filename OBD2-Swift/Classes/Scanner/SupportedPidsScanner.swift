@@ -25,7 +25,7 @@ open class SupportedPidsScanner {
     
     private(set) var currentPIDGroup: UInt8 = 0x00 {
         didSet {
-            print("Set new pid group \(currentPIDGroup)")
+            //print("Set new pid group \(currentPIDGroup)")
         }
     }
     

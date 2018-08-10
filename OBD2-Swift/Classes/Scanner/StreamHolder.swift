@@ -61,33 +61,33 @@ class StreamHolder: NSObject {
     // TODO: are we needed?
     //    var status : Stream.Status = .error
     
-    print("{ ")
+    //print("{ ")
     guard outputStream.streamStatus != .writing && inputStream.streamStatus != .writing else {
-        print("Data is already writing..!")
+        //print("Data is already writing..!")
         //TODO: test with new operation queue
         return
     }
 
     while cachedWriteData.count > 0 {
       let bytesWritten = write(data: cachedWriteData)
-      print("bytesWritten = \(bytesWritten)")
+      //print("bytesWritten = \(bytesWritten)")
       
       if bytesWritten == -1 {
         // ~hell
-        print("Write Error")
+        //print("Write Error")
         break
       } else if bytesWritten > 0 && cachedWriteData.count > 0 {
-        print("Wrote \(bytesWritten) bytes from \(cachedWriteData.count) cashed bytes")
+        //print("Wrote \(bytesWritten) bytes from \(cachedWriteData.count) cashed bytes")
         cachedWriteData.removeSubrange(0..<bytesWritten)
       }
     }
     
-    print(" }")
+    //print(" }")
 
     cachedWriteData.removeAll()
     
-    print("OutputStream status = \(outputStream.streamStatus.rawValue)")
-    print("Starting write wait")
+    //print("OutputStream status = \(outputStream.streamStatus.rawValue)")
+    //print("Starting write wait")
     
   }
   
@@ -103,10 +103,10 @@ class StreamHolder: NSObject {
         )
       }
       if bytesWritten < 0 {
-        print("Can not OutputStream.write() \(outputStream.streamError?.localizedDescription ?? "")")
+        //print("Can not OutputStream.write() \(outputStream.streamError?.localizedDescription ?? "")")
         return -1
       } else if bytesWritten == 0 {
-        print("OutputStream.write() returned 0")
+        //print("OutputStream.write() returned 0")
         return totalBytesWritten
     }
     
@@ -115,18 +115,18 @@ class StreamHolder: NSObject {
 }
   func handleInputEvent(_ eventCode: Stream.Event){
     if eventCode == .openCompleted {
-      print("NSStreamEventOpenCompleted")
+      //print("NSStreamEventOpenCompleted")
       delegate?.didOpen(stream: inputStream)
         
     } else if eventCode == .hasBytesAvailable {
-      print("NSStreamEventHasBytesAvailable")
+      //print("NSStreamEventHasBytesAvailable")
       delegate?.hasInput(on: inputStream)
         
     } else if eventCode == .errorOccurred {
-      print("NSStreamEventErrorOccurred")
+      //print("NSStreamEventErrorOccurred")
       
       if let error = inputStream.streamError {
-        print(error.localizedDescription)
+        //print(error.localizedDescription)
         delegate?.error(error, on: inputStream)
       }
     }
@@ -135,16 +135,16 @@ class StreamHolder: NSObject {
     func handleOutputEvent(_ eventCode: Stream.Event){
         if eventCode == .openCompleted {
             delegate?.didOpen(stream: outputStream)
-            print("NSStreamEventOpenCompleted")
+            //print("NSStreamEventOpenCompleted")
             
         } else if eventCode == .hasSpaceAvailable {
-            print("NSStreamEventHasBytesAvailable")
+            //print("NSStreamEventHasBytesAvailable")
             writeCachedData()
             
         } else if eventCode == .errorOccurred {
-            print("NSStreamEventErrorOccurred")
+            //print("NSStreamEventErrorOccurred")
             if let error = inputStream.streamError {
-                print(error.localizedDescription)
+                //print(error.localizedDescription)
                 delegate?.error(error, on: outputStream)
             }
         }
@@ -160,7 +160,7 @@ extension StreamHolder: StreamDelegate {
     } else if aStream == outputStream {
       handleOutputEvent(eventCode)
     } else {
-      print("Received event for unknown stream")
+      //print("Received event for unknown stream")
     }
 }
 }

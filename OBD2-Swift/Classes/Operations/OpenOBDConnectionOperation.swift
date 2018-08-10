@@ -21,7 +21,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
     private var inputOpen = false {
         didSet {
             if inputOpen {
-                print("Input stream opened")
+                //print("Input stream opened")
                 Logger.info("Input stream opened")
                 input.remove(from: .current, forMode: .defaultRunLoopMode)
             }
@@ -31,7 +31,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
     private var outOpen = false {
         didSet {
             if outOpen {
-                print("Output stream opened")
+                //print("Output stream opened")
                 Logger.info("Output stream opened")
                 output.remove(from: .current, forMode: .defaultRunLoopMode)
             }
@@ -40,13 +40,13 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
     
     override var isExecuting: Bool {
         let value = !(inputOpen && outOpen) && error == nil
-        print("isExecuting \(value)")
+        //print("isExecuting \(value)")
         return value
     }
     
     override var isFinished: Bool {
         let value = (inputOpen && outOpen) || error != nil
-        print("isFinished \(value)")
+        //print("isFinished \(value)")
         return value
     }
     
@@ -60,7 +60,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
         if event == .openCompleted {
             inputOpen = true
         } else if event == .errorOccurred {
-            print("Stream open error")
+            //print("Stream open error")
             self.error = input.streamError
         }
     }
@@ -69,7 +69,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
         if event == .openCompleted {
             outOpen = true
         } else if event == .errorOccurred {
-            print("Stream open error")
+            //print("Stream open error")
             self.error = output.streamError
         }
     }

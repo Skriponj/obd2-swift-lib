@@ -45,7 +45,7 @@ class CommandOperation: StreamHandleOperation {
         do {
             try writer.write()
         } catch let error {
-            print("Error \(error) on data writing")
+            //print("Error \(error) on data writing")
             self.error = InitializationError.DataWriteError
         }
     }

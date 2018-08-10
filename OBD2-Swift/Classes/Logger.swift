@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//func print(_ string: String) {
+//func //print(_ string: String) {
 //    Logger.shared.log(string)
 ////    NSLog(string)
 //}
@@ -74,13 +74,13 @@ open class Logger {
                 let fileNameWithoutExtension = fileName.replacingOccurrences(of: ".log", with: "")
                 let fileNameComponents = fileNameWithoutExtension.components(separatedBy: "_")
                 if fileNameComponents.count != 2 {
-                    print("The file is not an OBD log. Ignore.")
+                    //print("The file is not an OBD log. Ignore.")
                     continue
                 }
                 
                 let logDate = loggerFormatter.date(from: fileNameComponents[1])
                 if logDate == nil {
-                    print("Invalid log date. Ignore.")
+                    //print("Invalid log date. Ignore.")
                     continue
                 }
                 
@@ -146,7 +146,7 @@ open class Logger {
         do {
             try  " ".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
         } catch let error {
-            print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
+            //print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
         }
     }
     
@@ -168,7 +168,7 @@ open class Logger {
                 try  "\(content)\n\(log)".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
                 
             } catch let error {
-                print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
+                //print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
             }
             
         }

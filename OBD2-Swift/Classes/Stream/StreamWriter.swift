@@ -19,16 +19,16 @@ class StreamWriter {
     }
     
     func write() throws {
-        print("Write to OBD \(String(describing: String(data: data, encoding: .ascii)))")
+        //print("Write to OBD \(String(describing: String(data: data, encoding: .ascii)))")
         
         while data.count > 0 {
             let bytesWritten = write(data: data)
             
             if bytesWritten == -1 {
-                print("Write Error")
+                //print("Write Error")
                 throw WriterError.writeError
             } else if bytesWritten > 0 && data.count > 0 {
-                print("Wrote \(bytesWritten) bytes")
+                //print("Wrote \(bytesWritten) bytes")
                 data.removeSubrange(0..<bytesWritten)
             }
         }
@@ -46,10 +46,10 @@ class StreamWriter {
                 )
             }
             if bytesWritten < 0 {
-                print("Can not OutputStream.write()   \(stream.streamError?.localizedDescription ?? "")")
+                //print("Can not OutputStream.write()   \(stream.streamError?.localizedDescription ?? "")")
                 return -1
             } else if bytesWritten == 0 {
-                print("OutputStream.write() returned 0")
+                //print("OutputStream.write() returned 0")
                 return totalBytesWritten
             }
             

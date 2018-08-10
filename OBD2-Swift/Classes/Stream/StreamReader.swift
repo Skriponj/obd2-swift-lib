@@ -53,7 +53,7 @@ class StreamReader {
         
         var buffer = [UInt8].init(repeating: 0, count: bufferSize)
         let readLength = stream.read(&buffer, maxLength: bufferSize)
-        print("Read \(readLength) bytes")
+        //print("Read \(readLength) bytes")
         
         guard readLength > 0 else {
             throw StreamReaderError.noBytesReaded
@@ -65,7 +65,7 @@ class StreamReader {
         readBufferLenght += readLength
         
         if readBuffer.elmReadComplete() {
-            print("Read complete")
+            //print("Read complete")
             if (readBufferLenght - 3) > 0 && (readBufferLenght - 3) < readBuffer.count {
                 readBuffer[(readBufferLenght - 3)] = 0x00
                 readBufferLenght	-= 3
@@ -74,7 +74,7 @@ class StreamReader {
             let asciistr : [Int8] = readBuffer.map( { Int8(bitPattern: $0) } )
             let respString = String(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
             
-            print(respString)
+            //print(respString)
             
             if respString.elmError {
                 throw StreamReaderError.ELMError

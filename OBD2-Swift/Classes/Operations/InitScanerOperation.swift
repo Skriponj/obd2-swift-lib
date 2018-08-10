@@ -24,14 +24,14 @@ class InitScanerOperation: StreamHandleOperation {
 
     private(set) var currentPIDGroup: UInt8 = 0x00 {
         didSet {
-            print("Set new pid group \(currentPIDGroup)")
+            //print("Set new pid group \(currentPIDGroup)")
         }
     }
 
     private(set) var `protocol`:ScanProtocol? {
         didSet {
             Logger.info("Set OBD protocol to \(String(describing: self.`protocol`))")
-            print("Set OBD protocol to \(String(describing: self.`protocol`))")
+            //print("Set OBD protocol to \(String(describing: self.`protocol`))")
         }
     }
     
@@ -102,13 +102,13 @@ class InitScanerOperation: StreamHandleOperation {
                     continueInitialization()
                 }
             } catch StreamReaderError.noBytesReaded {
-                print("No bytes error")
+                //print("No bytes error")
                 self.error = InitializationError.ReaderError(reason: "No bytes for read")
             } catch StreamReaderError.ELMError {
-                print("ELM error")
+                //print("ELM error")
                 self.error = InitializationError.ReaderError(reason: "ELM Error")
             } catch {
-                print("Unknown reader error")
+                //print("Unknown reader error")
                 self.error = InitializationError.ReaderError(reason: "Unknown reader error")
             }
         } else if event == .errorOccurred {
@@ -137,7 +137,7 @@ class InitScanerOperation: StreamHandleOperation {
         do {
             try writer.write()
         } catch let error {
-            print("Error \(error) on data writing")
+            //print("Error \(error) on data writing")
             self.error = InitializationError.DataWriteError
         }
     }
@@ -146,14 +146,14 @@ class InitScanerOperation: StreamHandleOperation {
         switch state {
         case .echoOff:
             guard let resp = reader.response, resp.elmOK else {
-                print("Stop initialization, error during echo off")
+                //print("Stop initialization, error during echo off")
                 self.error = InitializationError.EchoOffError
                 return
             }
             break
         case .`protocol`:
             guard let response = reader.response else {
-                print("Handle protocol setup error")
+                //print("Handle protocol setup error")
                 self.error = InitializationError.ProtocolError
                 return
             }
