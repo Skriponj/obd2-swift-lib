@@ -175,7 +175,7 @@ class Parser {
             
             for c in chunks {
                 let value = Parser.string.toUInt8(hexString: c)
-                decodeBuf.append(UInt8(value))
+                decodeBuf.append(UInt8(truncatingIfNeeded: value))
             }
         }//TODO: - Handle negative
         

@@ -196,7 +196,7 @@ let SensorDescriptorTable : [SensorDescriptor] = [
                      "km/h",
                      0,
                      255,
-                     "MPH",
+                     "MP/H",
                      0,
                      159,
                      calcInt,
